@@ -107,7 +107,7 @@ class ScrollPager extends Widget
     /**
      * @var string $triggerTemplate Allows you to override the trigger html template.
      */
-    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a>{text}</a></div>';
+    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;">{text}</div>';
 
     /**
      * @var int $triggerOffset The number of pages which should load automatically.
@@ -118,7 +118,7 @@ class ScrollPager extends Widget
      * if you set the offset to 2, the pages 2 and 3 (page 1 is always shown) would load automatically and for every
      * subsequent page the user has to press the trigger to load it.
      */
-    public $triggerOffset = 0;
+    public $triggerOffset = 5;
 
     /**
      * @var string $spinnerSrc The src attribute of the spinner image.
@@ -146,7 +146,7 @@ class ScrollPager extends Widget
      * The href attribute of this element will be used to get the items from the previous page.
      * Make sure there is only one element that matches the selector.
      */
-    public $historyPrev = '.previous';
+    public $historyPrev = '.prev';
 
     /**
      * @var string $overflowContainer A selector for "div" HTML element to use as an overflow container.

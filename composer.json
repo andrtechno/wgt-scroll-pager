@@ -15,7 +15,6 @@
             "email": "dev@pixelion.com.ua",
             "homepage": "https://pixelion.com.ua"
         }
-        }
     ],
     "require": {
         "php": ">=5.4.0",

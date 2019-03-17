@@ -1,18 +1,15 @@
 Yii2 Scroll Pager
 =================
 
-[Yii2 Scroll Pager (Y2SP)](http://kop.github.io/yii2-scroll-pager) turns your regular paginated page into an
+
 infinite scrolling page using AJAX.
 
 Y2SP works with a `Pagination` object which specifies the totally number of pages and the current page number.
 
 Pager is build with help of [JQuery Infinite Ajax Scroll plugin](http://infiniteajaxscroll.com/).
 
-[![Latest Stable Version](https://poser.pugx.org/kop/yii2-scroll-pager/v/stable.svg)](https://packagist.org/packages/kop/yii2-scroll-pager)
-[![Code Climate](https://codeclimate.com/github/kop/yii2-scroll-pager.png)](https://codeclimate.com/github/kop/yii2-scroll-pager)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kop/yii2-scroll-pager/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kop/yii2-scroll-pager/?branch=master)
-[![Dependency Status](https://gemnasium.com/kop/yii2-scroll-pager.svg)](https://gemnasium.com/kop/yii2-scroll-pager)
-[![License](https://poser.pugx.org/kop/yii2-scroll-pager/license.svg)](https://packagist.org/packages/kop/yii2-scroll-pager)
+[![Latest Stable Version](https://poser.pugx.org/anix/wgt-scroll-pager/v/stable.svg)](https://packagist.org/packages/anix/wgt-scroll-pager)
+[![Total Downloads](https://poser.pugx.org/anix/wgt-scroll-pager/downloads.svg)](https://packagist.org/packages/anix/wgt-scroll-pager)
 
 
 
@@ -29,11 +26,11 @@ The preferred way to install this extension is through [Composer](http://getcomp
 
 Either run
 
-``` php composer.phar require kop/yii2-scroll-pager "dev-master" ```
+``` php composer.phar require panix/wgt-scroll-pager "dev-master" ```
 
 or add
 
-``` "kop/yii2-scroll-pager": "dev-master"```
+``` "panix/wgt-scroll-pager": "dev-master"```
 
 to the `require` section of your `composer.json` file.
 
@@ -51,7 +48,7 @@ echo ListView::widget([
      'dataProvider' => $dataProvider,
      'itemOptions' => ['class' => 'item'],
      'itemView' => '_item_view',
-     'pager' => ['class' => \kop\y2sp\ScrollPager::className()]
+     'pager' => ['class' => \panix\wgt\scrollpager\ScrollPager::className()]
 ]);
 ```
 
@@ -61,7 +58,7 @@ echo ListView::widget([
 echo GridView::widget([
      'dataProvider' => $dataProvider,
      'pager' => [
-        'class' => \kop\y2sp\ScrollPager::className(),
+        'class' => \panix\wgt\scrollpager\ScrollPager::class,
         'container' => '.grid-view tbody',
         'item' => 'tr',
         'paginationSelector' => '.grid-view .pagination',
@@ -100,7 +97,7 @@ echo GridView::widget([
 | triggerText  	     | Text of trigger the link. | `Load more items` |
 | triggerTemplate  	 | Allows you to override the trigger html template. | `<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a>{text}</a></div>` |
 | triggerOffset  	 | The number of pages which should load automatically. After that the trigger is shown for every subsequent page.<br><br> *Example:* if you set the offset to 2, the pages 2 and 3 (page 1 is always shown) would load automatically and for every subsequent page the user has to press the trigger to load it. | `0` |
-| spinnerSrc  	     | The src attribute of the spinner image. | ![Spinner Image](https://raw.githubusercontent.com/kop/yii2-scroll-pager/v1.0.2/assets/infinite-ajax-scroll/images/loader.gif) |
+| spinnerSrc  	     | The src attribute of the spinner image. | ![Spinner Image](https://raw.githubusercontent.com/andrtechno/wgt-scroll-pager/v1.0.2/assets/infinite-ajax-scroll/images/loader.gif) |
 | spinnerTemplate  	 | Allows you to override the spinner html template. | `<div class="ias-spinner" style="text-align: center;"><img src="{src}"/></div>` |
 | noneLeftText  	 | Text of the "nothing left" message. | `You reached the end` |
 | noneLeftTemplate   | Allows you to override the "nothing left" message html template. | `<div class="ias-noneleft" style="text-align: center;">{text}</div>` |
@@ -126,7 +123,7 @@ echo GridView::widget([
 
 ## Report
 
-- Report any issues [on the GitHub](https://github.com/kop/yii2-scroll-pager/issues).
+- Report any issues [on the GitHub](https://github.com/andrtechno/wgt-scroll-pager/issues).
 
 
 
@@ -138,6 +135,4 @@ echo GridView::widget([
 
 ## Resources
 
-- [Project Page](http://kop.github.io/yii2-scroll-pager)
-- [Packagist Package](https://packagist.org/packages/kop/yii2-scroll-pager)
-- [Source Code](https://github.com/kop/yii2-scroll-pager)
+- [Packagist Package](https://packagist.org/packages/panix/wgt-scroll-pager)

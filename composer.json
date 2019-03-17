@@ -1,0 +1,29 @@
+{
+    "name": "panix/wgt-scroll-pager",
+    "description": "Infinite AJAX scrolling for Yii2 ListView widget",
+    "homepage": "https://github.com/andrtechno/wgt-scroll-pager/",
+    "keywords": ["yii", "yii2", "scroll", "scrolling", "pager", "pagination"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/andrtechno/wgt-scroll-pager/issues",
+        "source": "https://github.com/andrtechno/wgt-scroll-pager"
+    },
+    "authors": [
+        {
+            "name": "PIXELION CMS",
+            "email": "dev@pixelion.com.ua",
+            "homepage": "https://pixelion.com.ua"
+        }
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "webcreate/jquery-ias": "^2.3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "panix\\wgt\\scrollpager\\": ""
+        }
+    }
+}

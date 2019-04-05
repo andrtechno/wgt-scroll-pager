@@ -8,8 +8,8 @@ Y2SP works with a `Pagination` object which specifies the totally number of page
 
 Pager is build with help of [JQuery Infinite Ajax Scroll plugin](http://infiniteajaxscroll.com/).
 
-[![Latest Stable Version](https://poser.pugx.org/anix/wgt-scroll-pager/v/stable.svg)](https://packagist.org/packages/anix/wgt-scroll-pager)
-[![Total Downloads](https://poser.pugx.org/anix/wgt-scroll-pager/downloads.svg)](https://packagist.org/packages/anix/wgt-scroll-pager)
+[![Latest Stable Version](https://poser.pugx.org/panix/wgt-scroll-pager/v/stable.svg)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![Total Downloads](https://poser.pugx.org/panix/wgt-scroll-pager/downloads.svg)](https://packagist.org/packages/panix/wgt-scroll-pager)
 
 
 

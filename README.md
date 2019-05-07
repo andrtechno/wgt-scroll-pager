@@ -4,13 +4,16 @@ Scroll Pager
 
 infinite scrolling page using AJAX.
 
-Y2SP works with a `Pagination` object which specifies the totally number of pages and the current page number.
+Y2SP works with a `yii\data\Pagination` object which specifies the totally number of pages and the current page number.
 
-Pager is build with help of [JQuery Infinite Ajax Scroll plugin](http://infiniteajaxscroll.com/).
+Pager is build with help of [jQuery Infinite Ajax Scroll plugin](http://infiniteajaxscroll.com/).
 
-[![Latest Stable Version](https://poser.pugx.org/panix/wgt-scroll-pager/v/stable.svg)](https://packagist.org/packages/panix/wgt-scroll-pager)
-[![Total Downloads](https://poser.pugx.org/panix/wgt-scroll-pager/downloads.svg)](https://packagist.org/packages/panix/wgt-scroll-pager)
-
+[![Latest Stable Version](https://poser.pugx.org/panix/wgt-scroll-pager/v/stable)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![Total Downloads](https://poser.pugx.org/panix/wgt-scroll-pager/downloads)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![Monthly Downloads](https://poser.pugx.org/panix/wgt-scroll-pager/d/monthly)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![Daily Downloads](https://poser.pugx.org/panix/wgt-scroll-pager/d/daily)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![Latest Unstable Version](https://poser.pugx.org/panix/wgt-scroll-pager/v/unstable)](https://packagist.org/packages/panix/wgt-scroll-pager)
+[![License](https://poser.pugx.org/panix/wgt-scroll-pager/license)](https://packagist.org/packages/panix/wgt-scroll-pager)
 
 
 ## Requirements

@@ -75,12 +75,6 @@ class ScrollPager extends Widget
      */
     public $paginationSelector = '.list-view .pagination';
 
-    /**
-     * @var string $next Enter the selector of the link element that links to the next page.
-     * The href attribute of this element will be used to get the items from the next page.
-     * Make sure there is only one(1) element that matches the selector.
-     */
-    public $next = '.next a';
 
     /**
      * @var int $delay Minimal number of milliseconds to stay in a loading state.
@@ -96,7 +90,7 @@ class ScrollPager extends Widget
      * <br>
      * Setting a negativeMargin of 250 means that IAS will start loading 250 pixel before the last item has scrolled into view.
      */
-    public $negativeMargin = 10;
+    public $negativeMargin = 200;
 
     /**
      * @var string $triggerText Text of trigger the link.
@@ -142,11 +136,18 @@ class ScrollPager extends Widget
     public $noneLeftTemplate = '<div class="ias-noneleft" style="text-align: center;">{text}</div>';
 
     /**
+     * @var string $next Enter the selector of the link element that links to the next page.
+     * The href attribute of this element will be used to get the items from the next page.
+     * Make sure there is only one(1) element that matches the selector.
+     */
+    public $next = '.next a';
+
+    /**
      * @var string $historyPrev Enter the selector of the link element that links to the previous page.
      * The href attribute of this element will be used to get the items from the previous page.
      * Make sure there is only one element that matches the selector.
      */
-    public $historyPrev = '.prev';
+    public $historyPrev = '.prev a';
 
     /**
      * @var string $overflowContainer A selector for "div" HTML element to use as an overflow container.

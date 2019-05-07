@@ -101,7 +101,7 @@ echo GridView::widget([
 | spinnerTemplate  	 | Allows you to override the spinner html template. | `<div class="ias-spinner" style="text-align: center;"><img src="{src}"/></div>` |
 | noneLeftText  	 | Text of the "nothing left" message. | `You reached the end` |
 | noneLeftTemplate   | Allows you to override the "nothing left" message html template. | `<div class="ias-noneleft" style="text-align: center;">{text}</div>` |
-| historyPrev  	     | The selector of the link element that links to the previous page.<br> The href attribute of this element will be used to get the items from the previous page.<br> Make sure there is only one element that matches the selector. | `.previous` |
+| historyPrev  	     | The selector of the link element that links to the previous page.<br> The href attribute of this element will be used to get the items from the previous page.<br> Make sure there is only one element that matches the selector. | `.prev a` |
 | overflowContainer  | A selector for `div` HTML element to use as an overflow container. | `null` |
 
 
@@ -129,7 +129,7 @@ echo GridView::widget([
 
 ## License
 
-**yii2-scroll-pager** is released under the MIT License. See the bundled `LICENSE.md` for details.
+**wgt-scroll-pager** is released under the MIT License. See the bundled `LICENSE.md` for details.
 
 
 

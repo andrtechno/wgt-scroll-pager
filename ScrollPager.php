@@ -90,7 +90,7 @@ class ScrollPager extends Widget
      * <br>
      * Setting a negativeMargin of 250 means that IAS will start loading 250 pixel before the last item has scrolled into view.
      */
-    public $negativeMargin = 200;
+    public $negativeMargin = 10;
 
     /**
      * @var string $triggerText Text of trigger the link.

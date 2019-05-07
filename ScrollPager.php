@@ -243,14 +243,15 @@ class ScrollPager extends Widget
         if ($this->triggerText === null) {
             $this->triggerText = Yii::t('wgt_ScrollPager/default', 'LOAD_MORE_ITEMS');
         }
-        //todo test
+
+        // Set default trigger prev text if not set
         if ($this->textPrev === null) {
-            $this->textPrev = Yii::t('wgt_ScrollPager/default', 'textPrev');
+            $this->textPrev = Yii::t('wgt_ScrollPager/default', 'LOAD_PREV_ITEMS');
         }
 
         // Set default "none left" message text if not set
         if ($this->noneLeftText === null) {
-            $this->noneLeftText = Yii::t('wgt_ScrollPager/default', 'You reached the end');
+            $this->noneLeftText = Yii::t('wgt_ScrollPager/default', 'FINISHED');
         }
     }
 
@@ -271,7 +272,7 @@ class ScrollPager extends Widget
             'pagination' => $this->paginationSelector,
             'next' => $this->next,
             'delay' => $this->delay,
-            'negativeMargin' => $this->negativeMargin
+            'negativeMargin' => $this->negativeMargin,
         ]);
         $initString = empty($this->overflowContainer)
             ? "var {$this->id}_ias = jQuery.ias({$pluginSettings});"
@@ -294,6 +295,7 @@ class ScrollPager extends Widget
                 'name' => self::EXTENSION_TRIGGER,
                 'options' => [
                     'text' => $this->triggerText,
+                    'textPrev' => $this->textPrev,
                     'html' => $this->triggerTemplate,
                     'offset' => $this->triggerOffset
                 ]

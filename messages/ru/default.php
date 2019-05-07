@@ -2,5 +2,6 @@
 
 return [
     'LOAD_MORE_ITEMS' => 'Загрузить больше записей',
-    'You reached the end' => 'Вы достигли конца'
+    'LOAD_PREV_ITEMS' => 'Загрузить предыдущие записи',
+    'FINISHED' => 'Вы достигли конца'
 ];

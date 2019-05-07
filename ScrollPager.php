@@ -228,7 +228,7 @@ class ScrollPager extends Widget
      * You must set this property in order to make ScrollPager work.
      */
     public $pagination;
-
+    public $textPrev;
     /**
      * Initializes the pager.
      */
@@ -241,7 +241,11 @@ class ScrollPager extends Widget
 
         // Set default trigger text if not set
         if ($this->triggerText === null) {
-            $this->triggerText = Yii::t('wgt_ScrollPager/default', 'Load more items');
+            $this->triggerText = Yii::t('wgt_ScrollPager/default', 'LOAD_MORE_ITEMS');
+        }
+        //todo test
+        if ($this->textPrev === null) {
+            $this->textPrev = Yii::t('wgt_ScrollPager/default', 'textPrev');
         }
 
         // Set default "none left" message text if not set

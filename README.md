@@ -1,4 +1,4 @@
-Yii2 Scroll Pager
+Scroll Pager
 =================
 
 

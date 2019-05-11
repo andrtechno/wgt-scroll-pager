@@ -29,7 +29,7 @@ The preferred way to install this extension is through [Composer](http://getcomp
 
 Either run
 
-``` php composer.phar require panix/wgt-scroll-pager "dev-master" ```
+``` php composer require panix/wgt-scroll-pager "dev-master" ```
 
 or add
 

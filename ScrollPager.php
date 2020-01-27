@@ -74,7 +74,7 @@ class ScrollPager extends Widget
      * @var string $paginationSelector Enter the selector of the element containing the pagination.
      */
     public $paginationSelector = '.list-view .pagination';
-
+    public $paginationOptions = ['class'=>'pagination'];
 
     /**
      * @var int $delay Minimal number of milliseconds to stay in a loading state.
@@ -288,8 +288,9 @@ class ScrollPager extends Widget
                 'name' => self::EXTENSION_SPINNER,
                 'options' =>
                     !empty($this->spinnerSrc)
-                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc]
-                        : ['html' => $this->spinnerTemplate]
+                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc,'text' => 'sssss']
+                        : ['html' => $this->spinnerTemplate,'text' => 'sssss'],
+
             ],
             [
                 'name' => self::EXTENSION_TRIGGER,
@@ -339,9 +340,7 @@ class ScrollPager extends Widget
         // Render pagination links
         echo LinkPager::widget([
             'pagination' => $this->pagination,
-            'options' => [
-                'class' => 'pagination d-none'
-            ]
+            'options' => $this->paginationOptions
         ]);
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'LOAD_MORE_ITEMS' => 'Завантажити більше записів',
-    'LOAD_PREV_ITEMS' => 'Завантажити попередні записи',
+    'LOAD_MORE_ITEMS' => 'Більше записів',
+    'LOAD_PREV_ITEMS' => 'Попередні записи',
     'FINISHED' => 'Вы досягли кінця'
 ];

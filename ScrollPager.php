@@ -74,7 +74,7 @@ class ScrollPager extends Widget
      * @var string $paginationSelector Enter the selector of the element containing the pagination.
      */
     public $paginationSelector = '.list-view .pagination';
-    public $paginationOptions = ['class'=>'pagination'];
+    public $paginationOptions = ['class' => 'pagination'];
 
     /**
      * @var int $delay Minimal number of milliseconds to stay in a loading state.
@@ -229,6 +229,7 @@ class ScrollPager extends Widget
      */
     public $pagination;
     public $textPrev;
+
     /**
      * Initializes the pager.
      */
@@ -279,37 +280,42 @@ class ScrollPager extends Widget
             : "var {$this->id}_ias = jQuery('{$this->overflowContainer}').ias({$pluginSettings});";
         $this->view->registerJs($initString, View::POS_READY, "{$this->id}_ias_main");
 
-        // Register IAS extensions
-        $this->registerExtensions([
-            [
-                'name' => self::EXTENSION_PAGING
-            ],
-            [
+
+        $extensions = [];
+        $extensions[] = ['name' => self::EXTENSION_PAGING];
+
+        if ($this->spinnerTemplate) {
+            $extensions[] = [
                 'name' => self::EXTENSION_SPINNER,
                 'options' =>
                     !empty($this->spinnerSrc)
-                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc,'text' => 'sssss']
-                        : ['html' => $this->spinnerTemplate,'text' => 'sssss'],
+                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc, 'text' => 'sssss']
+                        : ['html' => $this->spinnerTemplate, 'text' => 'sssss'],
 
-            ],
-            [
-                'name' => self::EXTENSION_TRIGGER,
-                'options' => [
-                    'text' => $this->triggerText,
-                    'textPrev' => $this->textPrev,
-                    'htmlPrev' => $this->prevTemplate,
-                    'html' => $this->triggerTemplate,
-                    'offset' => $this->triggerOffset
-                ]
-            ],
-            [
+            ];
+        }
+
+        $extensions[] = [
+            'name' => self::EXTENSION_TRIGGER,
+            'options' => [
+                'text' => $this->triggerText,
+                'textPrev' => $this->textPrev,
+                'htmlPrev' => $this->prevTemplate,
+                'html' => $this->triggerTemplate,
+                'offset' => $this->triggerOffset
+            ]
+        ];
+        if ($this->noneLeftTemplate) {
+            $extensions[] = [
                 'name' => self::EXTENSION_NONE_LEFT,
                 'options' => [
                     'text' => $this->noneLeftText,
                     'html' => $this->noneLeftTemplate
                 ]
-            ],
-            [
+            ];
+        }
+        if ($this->historyPrev) {
+            $extensions[] = [
                 'name' => self::EXTENSION_HISTORY,
                 'options' => [
                     'prev' => $this->historyPrev
@@ -318,8 +324,12 @@ class ScrollPager extends Widget
                     self::EXTENSION_TRIGGER,
                     self::EXTENSION_PAGING
                 ]
-            ]
-        ]);
+            ];
+        }
+
+
+        // Register IAS extensions
+        $this->registerExtensions($extensions);
 
         // Register event handlers
         $this->registerEventHandlers([

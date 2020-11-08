@@ -4,21 +4,25 @@ namespace panix\wgt\scrollpager\assets;
 
 use yii\web\AssetBundle;
 
-class InfiniteAjaxScrollAsset extends AssetBundle
+
+/**
+ * Class IASNoneLeftExtensionAsset
+ * @package panix\wgt\scrollpager\assets
+ */
+class IASNoneLeftExtensionAsset extends AssetBundle
 {
 
     public $sourcePath = '@vendor/webcreate/jquery-ias/src';
 
     public $js = [
-        'callbacks.js',
-        'jquery-ias.js'
+        'extension/noneleft.js'
     ];
 
     /**
      * @var array List of bundle class names that this bundle depends on.
      */
     public $depends = [
-        'yii\web\JqueryAsset',
+        'panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset',
     ];
-    
+
 }

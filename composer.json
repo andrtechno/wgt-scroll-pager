@@ -1,8 +1,7 @@
 {
     "name": "panix/wgt-scroll-pager",
-    "description": "Infinite AJAX scrolling for Yii2 ListView widget",
+    "description": "Infinite AJAX scrolling",
     "homepage": "https://github.com/andrtechno/wgt-scroll-pager/",
-    "keywords": ["yii", "yii2", "scroll", "scrolling", "pager", "pagination"],
     "type": "yii2-extension",
     "license": "MIT",
     "support": {

@@ -2,36 +2,17 @@
 
 namespace panix\wgt\scrollpager;
 
-use panix\engine\data\Widget;
 use panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\i18n\PhpMessageSource;
 use yii\web\JsExpression;
 use yii\web\View;
 use panix\engine\widgets\LinkPager;
 
-/**
- * ScrollPager turns your regular paginated page into an infinite scrolling page using AJAX.
- *
- * ScrollPager works with a [[Pagination]] object which specifies the totally number of pages and the current page number.
- *
- * <br>
- * <i>Example usage:</i>
- * <code>
- * echo ListView::widget([
- *      'dataProvider' => $dataProvider,
- *      'itemOptions' => ['class' => 'item'],
- *      'itemView' => '_item_view',
- *      'pager' => ['class' => \panix\wgt\scrollpager\ScrollPager::class]
- * ]);
- * </code>
- *
- * This widget is using {@link http://infiniteajaxscroll.com/ JQuery Infinite Ajax Scroll plugin}.
- *
- */
+
 class ScrollPager extends Widget
 {
     /**
@@ -74,7 +55,13 @@ class ScrollPager extends Widget
      * @var string $paginationSelector Enter the selector of the element containing the pagination.
      */
     public $paginationSelector = '.list-view .pagination';
-    public $paginationOptions = ['class' => 'pagination'];
+
+    /**
+     * @var string $next Enter the selector of the link element that links to the next page.
+     * The href attribute of this element will be used to get the items from the next page.
+     * Make sure there is only one(1) element that matches the selector.
+     */
+    public $next = '.next a';
 
     /**
      * @var int $delay Minimal number of milliseconds to stay in a loading state.
@@ -101,8 +88,8 @@ class ScrollPager extends Widget
     /**
      * @var string $triggerTemplate Allows you to override the trigger html template.
      */
-    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;">{text}</div>';
-    public $prevTemplate = '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;">{text}</div>';
+    public $triggerTemplate = '<div class="ias-trigger" style="text-align: center; cursor: pointer;"><a>{text}</a></div>';
+
     /**
      * @var int $triggerOffset The number of pages which should load automatically.
      * After that the trigger is shown for every subsequent page.
@@ -112,7 +99,7 @@ class ScrollPager extends Widget
      * if you set the offset to 2, the pages 2 and 3 (page 1 is always shown) would load automatically and for every
      * subsequent page the user has to press the trigger to load it.
      */
-    public $triggerOffset = 5;
+    public $triggerOffset = 0;
 
     /**
      * @var string $spinnerSrc The src attribute of the spinner image.
@@ -136,18 +123,22 @@ class ScrollPager extends Widget
     public $noneLeftTemplate = '<div class="ias-noneleft" style="text-align: center;">{text}</div>';
 
     /**
-     * @var string $next Enter the selector of the link element that links to the next page.
-     * The href attribute of this element will be used to get the items from the next page.
-     * Make sure there is only one(1) element that matches the selector.
-     */
-    public $next = '.next a';
-
-    /**
      * @var string $historyPrev Enter the selector of the link element that links to the previous page.
      * The href attribute of this element will be used to get the items from the previous page.
      * Make sure there is only one element that matches the selector.
      */
     public $historyPrev = '.prev a';
+
+    /**
+     * @var null $historyPrevText Text of the "load previous" message.
+     * Default: "Load previous items".
+     */
+    public $historyPrevText = null;
+
+    /**
+     * @var string $historyPrevTemplate Allows you to override the "load previous" message html template.
+     */
+    public $historyPrevTemplate = '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>';
 
     /**
      * @var string $overflowContainer A selector for "div" HTML element to use as an overflow container.
@@ -228,7 +219,17 @@ class ScrollPager extends Widget
      * You must set this property in order to make ScrollPager work.
      */
     public $pagination;
-    public $textPrev;
+
+    /**
+     * @var array The options for yii\widgets\LinkPager.
+     */
+    public $linkPager = [];
+    public $linkPagerOptions;
+
+    /**
+     * @var $linkPagerWrapper string Wrapper template for pagination.
+     */
+    public $linkPagerWrapperTemplate = '{pager}';
 
     /**
      * Initializes the pager.
@@ -236,6 +237,17 @@ class ScrollPager extends Widget
     public function init()
     {
         parent::init();
+
+        // Register translations source
+        /*Yii::$app->i18n->translations = ArrayHelper::merge(Yii::$app->i18n->translations, [
+            'kop\y2sp' => [
+                'class' => PhpMessageSource::className(),
+                'basePath' => '@vendor/kop/yii2-scroll-pager/messages',
+                'fileMap' => [
+                    'kop\y2sp' => 'general.php'
+                ]
+            ]
+        ]);*/
 
         // Register required assets
         $this->registerAssets();
@@ -245,14 +257,21 @@ class ScrollPager extends Widget
             $this->triggerText = Yii::t('wgt_ScrollPager/default', 'LOAD_MORE_ITEMS');
         }
 
-        // Set default trigger prev text if not set
-        if ($this->textPrev === null) {
-            $this->textPrev = Yii::t('wgt_ScrollPager/default', 'LOAD_PREV_ITEMS');
-        }
-
         // Set default "none left" message text if not set
         if ($this->noneLeftText === null) {
             $this->noneLeftText = Yii::t('wgt_ScrollPager/default', 'FINISHED');
+        }
+
+        // Set default "load previous" message text if not set
+        if ($this->historyPrevText === null) {
+            $this->historyPrevText = Yii::t('wgt_ScrollPager/default', 'Load previous items');
+        }
+
+        // Set default class for pagination
+        if ($this->linkPagerOptions === null) {
+            $this->linkPagerOptions = ['class' => 'pagination hidden'];
+        } elseif (!isset($this->linkPagerOptions['class'])) {
+            $this->linkPagerOptions['class'] = 'pagination hidden';
         }
     }
 
@@ -261,8 +280,8 @@ class ScrollPager extends Widget
      *
      * This overrides the parent implementation by initializing jQuery IAS and displaying the generated page buttons.
      *
-     * @throws \yii\base\InvalidConfigException
      * @return mixed
+     * @throws \yii\base\InvalidConfigException
      */
     public function run()
     {
@@ -273,49 +292,45 @@ class ScrollPager extends Widget
             'pagination' => $this->paginationSelector,
             'next' => $this->next,
             'delay' => $this->delay,
-            'negativeMargin' => $this->negativeMargin,
+            'negativeMargin' => $this->negativeMargin
         ]);
         $initString = empty($this->overflowContainer)
-            ? "var {$this->id}_ias = jQuery.ias({$pluginSettings});"
-            : "var {$this->id}_ias = jQuery('{$this->overflowContainer}').ias({$pluginSettings});";
+            ? "if(typeof window.{$this->id}_ias === 'object') { window.{$this->id}_ias.reinitialize() }
+             else { window.{$this->id}_ias = jQuery.ias({$pluginSettings}); };"
+            : "if(typeof window.{$this->id}_ias === 'object') { window.{$this->id}_ias.reinitialize() }
+             else { window.{$this->id}_ias = jQuery('{$this->overflowContainer}').ias({$pluginSettings}); };";
         $this->view->registerJs($initString, View::POS_READY, "{$this->id}_ias_main");
 
-
-        $extensions = [];
-        $extensions[] = ['name' => self::EXTENSION_PAGING];
-
-        if ($this->spinnerTemplate) {
-            $extensions[] = [
+        // Register IAS extensions
+        $this->registerExtensions([
+            [
+                'name' => self::EXTENSION_PAGING
+            ],
+            [
                 'name' => self::EXTENSION_SPINNER,
                 'options' =>
                     !empty($this->spinnerSrc)
-                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc, 'text' => 'sssss']
-                        : ['html' => $this->spinnerTemplate, 'text' => 'sssss'],
-
-            ];
-        }
-
-        $extensions[] = [
-            'name' => self::EXTENSION_TRIGGER,
-            'options' => [
-                'text' => $this->triggerText,
-                'textPrev' => $this->textPrev,
-                'htmlPrev' => $this->prevTemplate,
-                'html' => $this->triggerTemplate,
-                'offset' => $this->triggerOffset
-            ]
-        ];
-        if ($this->noneLeftTemplate) {
-            $extensions[] = [
+                        ? ['html' => $this->spinnerTemplate, 'src' => $this->spinnerSrc]
+                        : ['html' => $this->spinnerTemplate]
+            ],
+            [
+                'name' => self::EXTENSION_TRIGGER,
+                'options' => [
+                    'text' => $this->triggerText,
+                    'html' => $this->triggerTemplate,
+                    'offset' => $this->triggerOffset,
+                    'textPrev' => $this->historyPrevText,
+                    'htmlPrev' => $this->historyPrevTemplate,
+                ]
+            ],
+            [
                 'name' => self::EXTENSION_NONE_LEFT,
                 'options' => [
                     'text' => $this->noneLeftText,
                     'html' => $this->noneLeftTemplate
                 ]
-            ];
-        }
-        if ($this->historyPrev) {
-            $extensions[] = [
+            ],
+            [
                 'name' => self::EXTENSION_HISTORY,
                 'options' => [
                     'prev' => $this->historyPrev
@@ -324,12 +339,8 @@ class ScrollPager extends Widget
                     self::EXTENSION_TRIGGER,
                     self::EXTENSION_PAGING
                 ]
-            ];
-        }
-
-
-        // Register IAS extensions
-        $this->registerExtensions($extensions);
+            ]
+        ]);
 
         // Register event handlers
         $this->registerEventHandlers([
@@ -342,16 +353,19 @@ class ScrollPager extends Widget
             'next' => [],
             'ready' => [],
             'pageChange' => [
-                self::EXTENSION_PAGING
+                self::EXTENSION_PAGING,
             ]
         ]);
 
-
-        // Render pagination links
-        echo LinkPager::widget([
-            'pagination' => $this->pagination,
-            'options' => $this->paginationOptions
-        ]);
+        // Render pagination links with wrapper
+        echo str_replace(
+            '{pager}',
+            LinkPager::widget([
+                    'pagination' => $this->pagination,
+                    'options' => $this->linkPagerOptions,
+                ] + $this->linkPager),
+            $this->linkPagerWrapperTemplate
+        );
     }
 
     /**
@@ -391,11 +405,20 @@ class ScrollPager extends Widget
                         "Extension {$name} requires " . implode(', ', $depends) . " extensions to be enabled."
                     );
                 }
+                $this->view->registerAssetBundle("panix\wgt\scrollpager\assets\\{$name}Asset");
 
                 // Register extension
                 $options = Json::encode($options);
-                $this->view->registerJs(
-                    "{$this->id}_ias.extension(new {$name}({$options}));",
+                $this->view->registerJs(<<<JS
+ ;(function() {
+  if((window.{$this->id}_ias.extensions.map(function(item) {return item.constructor.name;}).indexOf('$name')) === -1) {
+      // prevent duplicate plugin registration
+        window.{$this->id}_ias.extension(new $name($options));
+    };
+}
+)();
+JS
+                    ,
                     View::POS_READY,
                     "{$this->id}_ias_{$name}"
                 );
@@ -426,9 +449,12 @@ class ScrollPager extends Widget
                     );
                 }
 
+                // Replace the variable template
+                $callback = str_replace('{{ias}}', "{$this->id}_ias", $this->$eventName);
+
                 // Register event
                 $this->view->registerJs(
-                    "{$this->id}_ias.on('{$name}', {$this->$eventName});",
+                    "window.{$this->id}_ias.on('{$name}', {$callback});",
                     View::POS_READY,
                     "{$this->id}_ias_event_{$eventName}"
                 );

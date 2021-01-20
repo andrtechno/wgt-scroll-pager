@@ -264,7 +264,7 @@ class ScrollPager extends Widget
 
         // Set default "load previous" message text if not set
         if ($this->historyPrevText === null) {
-            $this->historyPrevText = Yii::t('wgt_ScrollPager/default', 'Load previous items');
+            $this->historyPrevText = Yii::t('wgt_ScrollPager/default', 'LOAD_PREV_ITEMS');
         }
 
         // Set default class for pagination

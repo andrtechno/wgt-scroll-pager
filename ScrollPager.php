@@ -2,6 +2,7 @@
 
 namespace panix\wgt\scrollpager;
 
+use panix\engine\CMS;
 use panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -362,7 +363,7 @@ class ScrollPager extends Widget
             '{pager}',
             LinkPager::widget([
                     'pagination' => $this->pagination,
-                    'options' => $this->linkPagerOptions,
+                    'options' => $this->linkPagerOptions
                 ] + $this->linkPager),
             $this->linkPagerWrapperTemplate
         );

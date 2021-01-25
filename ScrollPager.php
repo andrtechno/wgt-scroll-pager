@@ -6,7 +6,7 @@ use panix\engine\CMS;
 use panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\base\Widget;
+use panix\engine\data\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;

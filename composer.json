@@ -2,7 +2,7 @@
     "name": "panix/wgt-scroll-pager",
     "description": "Infinite AJAX scrolling",
     "homepage": "https://github.com/andrtechno/wgt-scroll-pager/",
-    "type": "yii2-extension",
+    "type": "pixelion-component",
     "license": "MIT",
     "support": {
         "issues": "https://github.com/andrtechno/wgt-scroll-pager/issues",

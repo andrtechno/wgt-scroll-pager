@@ -1,6 +1,6 @@
 <?php
 
-namespace panix\wgt\scrollpager\assets;
+namespace panix\wgt\scrollpager;
 
 use yii\web\AssetBundle;
 
@@ -12,7 +12,7 @@ use yii\web\AssetBundle;
 class IASTriggerExtensionAsset extends AssetBundle
 {
 
-    public $sourcePath = '@vendor/webcreate/jquery-ias/src';
+    public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
         'extension/trigger.js'
@@ -22,7 +22,7 @@ class IASTriggerExtensionAsset extends AssetBundle
      * @var array List of bundle class names that this bundle depends on.
      */
     public $depends = [
-        'panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset',
+        'panix\wgt\scrollpager\InfiniteAjaxScrollAsset',
     ];
 
 }

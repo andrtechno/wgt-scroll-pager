@@ -3,7 +3,7 @@
 namespace panix\wgt\scrollpager;
 
 use panix\engine\CMS;
-use panix\wgt\scrollpager\assets\InfiniteAjaxScrollAsset;
+use panix\wgt\scrollpager\InfiniteAjaxScrollAsset;
 use Yii;
 use yii\base\InvalidConfigException;
 use panix\engine\data\Widget;
@@ -249,9 +249,10 @@ class ScrollPager extends Widget
                 ]
             ]
         ]);*/
-
-        // Register required assets
-        $this->registerAssets();
+        if(!Yii::$app->request->isPjax) {
+            // Register required assets
+            $this->registerAssets();
+        }
 
         // Set default trigger text if not set
         if ($this->triggerText === null) {
@@ -286,6 +287,7 @@ class ScrollPager extends Widget
      */
     public function run()
     {
+
         // Initialize jQuery IAS plugin
         $pluginSettings = Json::encode([
             'container' => $this->container,
@@ -295,6 +297,7 @@ class ScrollPager extends Widget
             'delay' => $this->delay,
             'negativeMargin' => $this->negativeMargin
         ]);
+
         $initString = empty($this->overflowContainer)
             ? "if(typeof window.{$this->id}_ias === 'object') { window.{$this->id}_ias.reinitialize() }
              else { window.{$this->id}_ias = jQuery.ias({$pluginSettings}); };"
@@ -302,6 +305,7 @@ class ScrollPager extends Widget
              else { window.{$this->id}_ias = jQuery('{$this->overflowContainer}').ias({$pluginSettings}); };";
         $this->view->registerJs($initString, View::POS_READY, "{$this->id}_ias_main");
 
+        if(!Yii::$app->request->isPjax){
         // Register IAS extensions
         $this->registerExtensions([
             [
@@ -357,7 +361,7 @@ class ScrollPager extends Widget
                 self::EXTENSION_PAGING,
             ]
         ]);
-
+        }
         // Render pagination links with wrapper
         echo str_replace(
             '{pager}',
@@ -367,6 +371,7 @@ class ScrollPager extends Widget
                 ] + $this->linkPager),
             $this->linkPagerWrapperTemplate
         );
+
     }
 
     /**
@@ -406,7 +411,7 @@ class ScrollPager extends Widget
                         "Extension {$name} requires " . implode(', ', $depends) . " extensions to be enabled."
                     );
                 }
-                $this->view->registerAssetBundle("panix\wgt\scrollpager\assets\\{$name}Asset");
+                $this->view->registerAssetBundle("panix\wgt\scrollpager\\{$name}Asset");
 
                 // Register extension
                 $options = Json::encode($options);

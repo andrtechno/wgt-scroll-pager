@@ -9,8 +9,8 @@ class InfiniteAjaxScrollAsset extends AssetBundle
 
     public $sourcePath = __DIR__ . '/assets/js';
     public $js = [
-        'callbacks.js',
-        'jquery-ias.js'
+        YII_DEBUG ? 'callbacks.js' : 'callbacks.min.js',
+        YII_DEBUG ? 'jquery-ias.js' : 'jquery-ias.min.js'
     ];
 
     /**

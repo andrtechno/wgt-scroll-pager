@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class IASTriggerExtensionAsset
- * @package panix\wgt\scrollpager\assets
+ * @package panix\wgt\scrollpager
  */
 class IASTriggerExtensionAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class IASTriggerExtensionAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
-        'extension/trigger.js'
+        YII_DEBUG ? 'extension/trigger.js' : 'extension/trigger.min.js'
     ];
 
     /**

@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class IASNoneLeftExtensionAsset
- * @package panix\wgt\scrollpager\assets
+ * @package panix\wgt\scrollpager
  */
 class IASNoneLeftExtensionAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class IASNoneLeftExtensionAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
-        'extension/noneleft.js'
+        YII_DEBUG ? 'extension/noneleft.js' : 'extension/noneleft.min.js'
     ];
 
     /**

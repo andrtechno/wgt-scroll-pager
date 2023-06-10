@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class IASSpinnerExtensionAsset
- * @package panix\wgt\scrollpager\assets
+ * @package panix\wgt\scrollpager
  */
 class IASSpinnerExtensionAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class IASSpinnerExtensionAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
-        'extension/spinner.js'
+        YII_DEBUG ? 'extension/spinner.js' : 'extension/spinner.min.js'
     ];
 
     /**

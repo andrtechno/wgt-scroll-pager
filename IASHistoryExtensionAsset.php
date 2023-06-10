@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class IASHistoryExtensionAsset
- * @package panix\wgt\scrollpager\assets
+ * @package panix\wgt\scrollpager
  */
 class IASHistoryExtensionAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class IASHistoryExtensionAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
-        'extension/history.js'
+        YII_DEBUG ? 'extension/history.js' : 'extension/history.min.js'
     ];
 
     /**

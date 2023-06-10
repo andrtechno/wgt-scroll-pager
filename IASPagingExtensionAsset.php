@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class IASPagingExtensionAsset
- * @package panix\wgt\scrollpager\assets
+ * @package panix\wgt\scrollpager
  */
 class IASPagingExtensionAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class IASPagingExtensionAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/assets/js';
 
     public $js = [
-        'extension/paging.js'
+        YII_DEBUG ? 'extension/paging.js' : 'extension/paging.min.js'
     ];
 
     /**
